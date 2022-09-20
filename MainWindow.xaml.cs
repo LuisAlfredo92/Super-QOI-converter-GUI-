@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Core;
+using Microsoft.Win32;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Core;
-using Microsoft.Win32;
 
 namespace Super_QOI_converter__GUI_
 {
@@ -138,6 +138,9 @@ namespace Super_QOI_converter__GUI_
             }
         }
 
+        /// <summary>
+        /// Opens an About window when the button is clicked
+        /// </summary>
         private void AboutBtn_OnClick(object sender, RoutedEventArgs e)
             => new About().Show();
     }

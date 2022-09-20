@@ -7,13 +7,20 @@ namespace Super_QOI_converter__GUI_
     /// <summary>
     /// Lógica de interacción para About.xaml
     /// </summary>
-    public partial class About : Window
+    public partial class About
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="About"/> class.
+        /// </summary>
         public About()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Depending on what button was clicked, it redirects to the
+        /// respective web page
+        /// </summary>
         private void GoToLink(object sender, RoutedEventArgs e)
         {
             var link = (sender as Button)!.Content switch
