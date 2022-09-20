@@ -140,7 +140,20 @@
                         AutomationProperties.Name="StartConversionBtn"
                         IsEnabled="False"
                         IsDefault="True"
-                        Click="StartConversionBtn_OnClick" Margin="0,20,0,0" />
+                        Click="StartConversionBtn_OnClick"
+                        Margin="0,20,0,20" />
+                <Button x:Name="AboutBtn"
+                        FontWeight="Bold"
+                        FontSize="18"
+                        Content="About"
+                        AutomationProperties.HelpText="About Super QOI converter"
+                        Padding="1,5,1,5"
+                        Background="White"
+                        Cursor="Hand"
+                        AutomationProperties.IsRequiredForForm="True"
+                        AutomationProperties.Name="AboutBtn"
+                        IsDefault="True"
+                        Click="AboutBtn_OnClick" />
             </StackPanel>
         </Grid>
     </Grid>

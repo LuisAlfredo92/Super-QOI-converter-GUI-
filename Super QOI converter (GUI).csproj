@@ -28,6 +28,7 @@
   <ItemGroup>
     <None Remove="resources\del.png" />
     <None Remove="resources\Done.svg" />
+    <None Remove="resources\LuisAlfredo92.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +57,7 @@
   <ItemGroup>
     <Resource Include="resources\del.png" />
     <Resource Include="resources\Done.svg" />
+    <Resource Include="resources\LuisAlfredo92.png" />
   </ItemGroup>
 
 </Project>

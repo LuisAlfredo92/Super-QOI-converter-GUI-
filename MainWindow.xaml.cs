@@ -137,5 +137,8 @@ namespace Super_QOI_converter__GUI_
                     i++;
             }
         }
+
+        private void AboutBtn_OnClick(object sender, RoutedEventArgs e)
+            => new About().Show();
     }
 }
