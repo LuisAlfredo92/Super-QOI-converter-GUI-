@@ -11,7 +11,7 @@ Just open the program, add files using the button or drag and droppin them into 
 ## Contributing
 1. To contribute, you must go to [the solution repository of Super QOI converter](https://github.com/LuisAlfredo92/Super-QOI-converter "the original repository of Super QOI converter")
 2. Clone it and open the solution in Visual Studio.
-3. Do you can make your changes
+3. Do your changes
 4. Confirm your changes
 	4.1. Upload your changes first to this repository (GUI)
 	4.2. Confirm the changes to the solution repository
