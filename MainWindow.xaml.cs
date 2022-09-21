@@ -1,6 +1,7 @@
 ﻿using Core;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -13,6 +14,8 @@ namespace Super_QOI_converter__GUI_
     /// </summary>
     public partial class MainWindow : Window, IOptionsConfirmation
     {
+        private string[] allowedFormats;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
@@ -20,6 +23,7 @@ namespace Super_QOI_converter__GUI_
         {
             InitializeComponent();
             FilesListView.LayoutUpdated += UnlockButtons;
+            allowedFormats = new[] { ".jpeg", ".png", ".jpg", ".bmp", ".JPEG", ".PNG", ".JPG", ".BMP" };
         }
 
         /// <summary>
@@ -143,5 +147,27 @@ namespace Super_QOI_converter__GUI_
         /// </summary>
         private void AboutBtn_OnClick(object sender, RoutedEventArgs e)
             => new About().Show();
+
+        /// <summary>
+        /// Function called when the user drops
+        /// files or folders into the program
+        /// </summary>
+        private void OnDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var files = ((string[])e.Data.GetData(DataFormats.FileDrop!)!).ToList();
+                var dirs = files.Where(path => File.GetAttributes(path).HasFlag(FileAttributes.Directory)).ToList();
+                foreach (var dir in dirs)
+                {
+                    files.AddRange(Directory.GetFiles(dir));
+                    files.Remove(dir);
+                }
+                foreach (var file in files.Where(
+                             elem => (allowedFormats.Contains(Path.GetExtension(elem))
+                                 && !FilesListView.Items.Contains(elem))))
+                    FilesListView.Items.Add(file);
+            }
+        }
     }
 }
