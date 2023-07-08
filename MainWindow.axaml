@@ -1,0 +1,82 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:assets="clr-namespace:GUI.Assets"
+        xmlns:gui="clr-namespace:GUI"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="GUI.MainWindow"
+        Title="GUI"
+        Icon="/Assets/icon.ico">
+  <Grid ColumnDefinitions="*,*">
+    <!-- Files and list operations -->
+    <Grid Grid.Column="0"
+          RowDefinitions="8*,*,*"
+          ColumnDefinitions="*,*">
+      <!-- Files grid placeholder -->
+      <Border Grid.Row="0"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              x:Name="ImagesToConvertPlaceHolder"
+              BorderBrush="White"
+              BorderThickness="2"
+              IsVisible="True">
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"
+                   FontSize="20"
+                   TextAlignment="Center"
+                   Margin="10"
+                   Text="{x:Static assets:Resources.Drag_and_drop_message}"/>
+      </Border>
+      <!-- Files grid -->
+      <DataGrid Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                BorderBrush="White"
+                BorderThickness="1"
+                AutoGenerateColumns="True"
+                GridLinesVisibility="Horizontal"
+                x:Name="ImagesToConvertDataGrid"
+                IsVisible="False">
+        <!--<DataGrid.Columns>
+          --><!--<DataGridTemplateColumn>
+                      <DataTemplate>
+                          <Image x:Name="StatusImage"/>
+                      </DataTemplate>
+                  </DataGridTemplateColumn>--><!--
+          <DataGridTextColumn x:DataType="gui:ImageToConvert"
+                              Header="File name"
+                              Binding="{Binding FileName}" />
+          <DataGridTextColumn x:DataType="gui:ImageToConvert"
+                              Header="File path"
+                              Binding="{Binding FilePath}"/>
+          --><!--<DataGridTemplateColumn>
+                      <DataTemplate>
+                          <Button Content="Remove"
+                                  CommandParameter="{Binding Id}"/>
+                      </DataTemplate>
+                  </DataGridTemplateColumn>--><!--
+        </DataGrid.Columns>-->
+      </DataGrid>
+      <!-- Operations buttons -->
+      <Button Grid.Row="1"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Margin="0 5"
+              Content="{x:Static assets:Resources.Add_files}"
+              Click="AddFilesOrFoldersButton_OnClick"/>
+      <Button Grid.Row="2"
+              Grid.Column="0"
+              Margin="0 5 5 0"
+              Click="ClearListButton_OnClick"
+              Content="{x:Static assets:Resources.Clear_list}"/>
+      <Button Grid.Row="2"
+              Grid.Column="1"
+              CommandParameter="True"
+              Margin="5 5 0 0"
+              Click="ClearListButton_OnClick"
+              Content="{x:Static assets:Resources.Clear_converted_files}"/>
+    </Grid>
+  </Grid>
+</Window>
