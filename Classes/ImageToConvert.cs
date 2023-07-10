@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace GUI;
+namespace GUI.Classes;
 
 public class ImageToConvert
 {
@@ -13,7 +13,7 @@ public class ImageToConvert
     }
 
     public uint Id { get; init; }
-    public ConversionState? State { get; set; }
+    public ConversionStateEnum? State { get; set; }
     public string FileName { get; set; }
     public string FilePath { get; set; }
 }

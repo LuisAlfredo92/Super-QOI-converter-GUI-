@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="128"
+   height="128"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="Error.svg"
+   inkscape:export-filename="Error.png"
+   inkscape:export-xdpi="12"
+   inkscape:export-ydpi="12"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title956">Del</title>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="false"
+     inkscape:document-units="px"
+     showgrid="true"
+     units="px"
+     scale-x="0.26458"
+     borderlayer="true"
+     showborder="true"
+     inkscape:showpageshadow="true"
+     guidecolor="#c3c3ff"
+     guideopacity="0.49803922"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="2.9002427"
+     inkscape:cx="45.685832"
+     inkscape:cy="76.545318"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <sodipodi:guide
+       position="0,32"
+       orientation="0,1024"
+       id="guide9"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="256,32"
+       orientation="1024,0"
+       id="guide11"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="256,-224"
+       orientation="0,-1024"
+       id="guide13"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0,-224"
+       orientation="-1024,0"
+       id="guide15"
+       inkscape:locked="false" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid17"
+       color="#3f65ff"
+       opacity="0.50196078"
+       empcolor="#9356c6"
+       empopacity="0.50196078"
+       spacingx="4"
+       spacingy="4"
+       originx="0"
+       originy="0"
+       empspacing="4" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <rect
+       x="0"
+       y="0"
+       width="1024"
+       height="1024"
+       id="rect239" />
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.09057384,0,0,0.08317742,-30.373799,-5.8130628)"
+       id="text237"
+       style="font-size:471.668px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;letter-spacing:0px;white-space:pre;shape-inside:url(#rect239);display:inline;fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:11.52115149;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="353.28364"
+         y="426.85954"
+         id="tspan1288"><tspan
+           style="font-weight:800;font-family:Aneliza;-inkscape-font-specification:'Aneliza Ultra-Bold'"
+           id="tspan1286">X</tspan></tspan></text>
+  </g>
+  <metadata
+     id="metadata19">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>LuisAlfredo92</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>LuisAlfredo92</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:language>es-MX</dc:language>
+        <dc:title>Del</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
