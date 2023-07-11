@@ -4,20 +4,25 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using GUI.Classes;
+using Core;
+using GUI.Dialogs;
 
 namespace GUI;
 
-public partial class MainWindow : Window
+public partial class MainWindow : Window, IOptionsConfirmation
 {
     private List<ImageToConvert> _imagesList = new();
     private uint _imageIndex;
     private readonly List<CultureInfo> _cultures;
+    private bool _confirmCopy;
+    private bool _deleteOriginal;
 
     public MainWindow()
     {
@@ -60,7 +65,7 @@ public partial class MainWindow : Window
         if (files.Count < 1) return;
 
         // Check if the user selected GIF images
-        if (files.Any(file => Path.GetExtension(file.Path.AbsolutePath).EndsWith("gif")))
+        if (files.Any(file => Path.GetExtension(file.Path.LocalPath).EndsWith("gif")))
         {
             var confirmDialog = new ConfirmDialog(Assets.Resources.GIF_files_confirmation);
             var a = await confirmDialog.ShowDialog<bool?>(this);
@@ -119,7 +124,7 @@ public partial class MainWindow : Window
         var files = data.GetFiles();
         if (files is null) return;
 
-        List<string> paths = files.Select(file => file.Path.AbsolutePath).ToList();
+        List<string> paths = files.Select(file => file.Path.LocalPath).ToList();
 
         // Add selected files to list
         foreach (var path in paths)
@@ -137,6 +142,8 @@ public partial class MainWindow : Window
 
         StartConversionButton.Content = "Working,,,";
         StartConversionButton.IsEnabled = false;
+        _confirmCopy = CopyAttributesCheckBox.IsChecked ?? true;
+        _deleteOriginal = DeleteOriginalCheckBox.IsChecked ?? false;
 
         var processedImages = 0;
         // Get the current settings.
@@ -167,18 +174,84 @@ public partial class MainWindow : Window
         ImagesToConvertDataGrid.ItemsSource = _imagesList;
     }
 
-    private static void Convert(object? data)
+    private void Convert(object? data)
     {
         if(data is not ImageToConvert image) return;
 
         // TODO: Check if file is an image
         image.State = ConversionStateEnum.Working;
-        Thread.Sleep(5000);
-        image.State = ConversionStateEnum.Correct;
+        if(Converter.ConvertToQoi(this, image.FilePath))
+            image.State = ConversionStateEnum.Correct;
+        else
+        {
+            image.State = ConversionStateEnum.Error;
+            image.ToolTipMessage = "There was an error during conversion";
+        }
     }
 
     private void LanguageComboBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         Assets.Resources.Culture = _cultures[LanguageComboBox.SelectedIndex];
+    }
+
+    private void RemoveButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if((sender as Button)!.CommandParameter is not uint id) return;
+        _imagesList.Remove(_imagesList.First(image => image.Id == id));
+        ValidateFilesList();
+    }
+
+    public bool ConfirmCopy(string originalFile = "") => _confirmCopy;
+
+    public bool ConfirmDeletion(string originalFile = "") => _deleteOriginal;
+
+    public bool ConfirmOverwrite(ref string existingFile)
+    {
+        switch (ExistingFilesComboBox.SelectedIndex)
+        {
+            // Ask
+            case 0:
+                var fileName = Path.GetFileName(existingFile);
+                var showDialog = Dispatcher.UIThread.InvokeAsync(async () =>
+                {
+                    ConfirmOverwrite confirmOverwriteDialog = new(fileName);
+                    return await confirmOverwriteDialog.ShowDialog<(OverwriteOptionsEnum, bool)?>(this);
+                });
+
+                var selectedValueTuple = showDialog.Result;
+                if (selectedValueTuple is null) return false;
+
+                switch (selectedValueTuple.Value.Item1)
+                {
+                    case OverwriteOptionsEnum.Skip:
+                        return false;
+                        case OverwriteOptionsEnum.Rename:
+                            existingFile = existingFile.Insert(existingFile.Length - 4, "_copy");
+                        return true;
+                    case OverwriteOptionsEnum.Overwrite:
+                        return true;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+            // Skip
+            case 1:
+                return false;
+
+            // Rename
+            case 2:
+                existingFile = existingFile.Insert(existingFile.Length - 4, "_copy");
+                return true;
+
+            // Overwrite
+            case 3: return true;
+        }
+
+        return false;
+    }
+
+    public void ManageDirectory(string directoryPath)
+    {
+        throw new NotImplementedException();
     }
 }

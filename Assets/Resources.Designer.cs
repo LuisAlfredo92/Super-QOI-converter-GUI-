@@ -79,6 +79,15 @@ namespace GUI.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The file {0} already exists. What do you want to do?.
+        /// </summary>
+        public static string Already_exists {
+            get {
+                return ResourceManager.GetString("Already exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Ask.
         /// </summary>
         public static string Ask {
@@ -142,6 +151,15 @@ namespace GUI.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Don&apos;t ask again this session.
+        /// </summary>
+        public static string Don_t_ask_again {
+            get {
+                return ResourceManager.GetString("Don\'t ask again", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Use the &quot;Add files&quot; button below or drag and drop files here.
         /// </summary>
         public static string Drag_and_drop_message {
@@ -201,6 +219,15 @@ namespace GUI.Assets {
         public static string Overwrite {
             get {
                 return ResourceManager.GetString("Overwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Remove.
+        /// </summary>
+        public static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
             }
         }
         

@@ -57,16 +57,23 @@
                                            Height="16"
                                            Width="16"
                                            HorizontalAlignment="Center"
-                                           VerticalAlignment="Center" /></ToolTip>
+                                           VerticalAlignment="Center" />
+                                </ToolTip>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn x:DataType="gui:ImageToConvert"
                                         Header="File name"
                                         Binding="{Binding FileName}" />
-                    <DataGridTextColumn x:DataType="gui:ImageToConvert"
-                                        Header="File path"
-                                        Binding="{Binding FilePath}" />
+                    <DataGridTemplateColumn Header="Remove">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="gui:ImageToConvert">
+                                <Button Content="{x:Static assets:Resources.Remove}"
+                                        CommandParameter="{Binding Id}"
+                                        Click="RemoveButton_OnClick" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <!-- Operations buttons -->
@@ -97,8 +104,8 @@
             <Grid Grid.Row="0"
                   ColumnDefinitions="*,*"
                   RowDefinitions="*,*,*,*,*,*"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center">
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
                 <!-- Copy attributes -->
                 <CheckBox Grid.Row="0"
                           Grid.Column="0"
@@ -107,16 +114,16 @@
                           VerticalContentAlignment="Center"
                           IsChecked="True"
                           Margin="0 5"
-                          Content="{x:Static assets:Resources.Copy_attributes}"/>
-              <!-- Delete original -->
-              <CheckBox Grid.Row="1"
+                          Content="{x:Static assets:Resources.Copy_attributes}" />
+                <!-- Delete original -->
+                <CheckBox Grid.Row="1"
                           Grid.Column="0"
                           Grid.ColumnSpan="2"
                           x:Name="DeleteOriginalCheckBox"
                           VerticalContentAlignment="Center"
                           IsChecked="False"
                           Margin="0 5"
-                          Content="{x:Static assets:Resources.Delete_original_files}"/>
+                          Content="{x:Static assets:Resources.Delete_original_files}" />
                 <!-- Start immediately -->
                 <CheckBox Grid.Row="2"
                           Grid.Column="0"
@@ -125,23 +132,24 @@
                           VerticalContentAlignment="Center"
                           IsChecked="False"
                           Margin="0 5"
-                          Content="{x:Static assets:Resources.Start_immediately}"/>
-              <!-- What to do with existing -->
-              <TextBlock Grid.Row="3"
+                          Content="{x:Static assets:Resources.Start_immediately}" />
+                <!-- What to do with existing -->
+                <TextBlock Grid.Row="3"
                            Grid.Column="0"
                            Margin="0 5 5 5"
                            TextWrapping="Wrap"
                            VerticalAlignment="Center"
-                           Text="{x:Static assets:Resources.What_to_do_with_same_name_files}"/>
+                           Text="{x:Static assets:Resources.What_to_do_with_same_name_files}" />
                 <ComboBox Grid.Row="3"
                           Grid.Column="1"
+                          x:Name="ExistingFilesComboBox"
                           Margin="5 5 5 0"
                           SelectedIndex="0">
                     <ComboBox.Items>
-                        <ComboBoxItem Content="{x:Static assets:Resources.Ask}"></ComboBoxItem>
-                        <ComboBoxItem Content="{x:Static assets:Resources.Skip}"></ComboBoxItem>
-                        <ComboBoxItem Content="{x:Static assets:Resources.Rename}"></ComboBoxItem>
-                        <ComboBoxItem Content="{x:Static assets:Resources.Overwrite}"></ComboBoxItem>
+                        <ComboBoxItem Content="{x:Static assets:Resources.Ask}" />
+                        <ComboBoxItem Content="{x:Static assets:Resources.Skip}" />
+                        <ComboBoxItem Content="{x:Static assets:Resources.Rename}" />
+                        <ComboBoxItem Content="{x:Static assets:Resources.Overwrite}" />
                     </ComboBox.Items>
                 </ComboBox>
                 <!-- Parallel processes -->
@@ -150,18 +158,17 @@
                            Margin="0 5 5 5"
                            TextWrapping="Wrap"
                            VerticalAlignment="Center"
-                           Text="{x:Static assets:Resources.Number_of_parallel_processes}"/>
+                           Text="{x:Static assets:Resources.Number_of_parallel_processes}" />
                 <ToolTip Grid.Row="4"
                          Grid.Column="1"
                          BorderThickness="0"
                          Padding="0"
                          Tip="{x:Static assets:Resources.Max_value_parallel_processes}">
                     <NumericUpDown x:Name="ParallelProcessesNumericUpDown"
-                          Margin="5 5 5 0"
-                          ClipValueToMinMax="True"
-                          FormatString="F0"
-                          Minimum="1">
-                </NumericUpDown>
+                                   Margin="5 5 5 0"
+                                   ClipValueToMinMax="True"
+                                   FormatString="F0"
+                                   Minimum="1" />
                 </ToolTip>
                 <!-- Language -->
                 <TextBlock Grid.Row="5"
@@ -169,13 +176,12 @@
                            Margin="0 5 5 5"
                            TextWrapping="Wrap"
                            VerticalAlignment="Center"
-                           Text="Language"/>
+                           Text="Language" />
                 <ComboBox Grid.Row="5"
                           Grid.Column="1"
                           x:Name="LanguageComboBox"
                           Margin="5 5 5 0"
-                          SelectedIndex="0">
-                </ComboBox>
+                          SelectedIndex="0" />
             </Grid>
 
             <!-- Conversion buttons -->

@@ -130,4 +130,13 @@
   <data name="Start immediately" xml:space="preserve">
     <value>Iniciar conversión inmediatamente cuando añadas archivos a la lista</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Quitar</value>
+  </data>
+  <data name="Already exists" xml:space="preserve">
+    <value>El archivo {0} ya existe. ¿Qué quieres hacer?</value>
+  </data>
+  <data name="Don't ask again" xml:space="preserve">
+    <value>No preguntar de nuevo esta sesión</value>
+  </data>
 </root>
