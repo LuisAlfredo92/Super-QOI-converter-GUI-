@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using GUI.Classes;
@@ -18,11 +17,31 @@ public partial class MainWindow : Window
 {
     private List<ImageToConvert> _imagesList = new();
     private uint _imageIndex;
+    private readonly List<CultureInfo> _cultures;
+
     public MainWindow()
     {
         InitializeComponent();
+        ParallelProcessesNumericUpDown.Value = ParallelProcessesNumericUpDown.Maximum = Environment.ProcessorCount;
         ImagesToConvertDataGrid.ItemsSource = _imagesList;
         AddHandler(DragDrop.DropEvent, DropFiles);
+
+        // Set language
+        _cultures = new List<CultureInfo> { CultureInfo.GetCultureInfo("en"), CultureInfo.GetCultureInfo("es") };
+        List<string> languages = new();
+        var tempIndex = 0;
+        for (var i = 0; i < _cultures.Count; i++)
+        {
+            var culture = _cultures[i];
+            languages.Add(culture.DisplayName);
+
+            if (culture.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.TwoLetterISOLanguageName)
+                tempIndex = i;
+        }
+
+        LanguageComboBox.ItemsSource = languages;
+        LanguageComboBox.SelectedIndex = tempIndex;
+        LanguageComboBox.SelectionChanged += LanguageComboBox_OnSelectionChanged;
     }
 
     private async void AddFilesButton_OnClick(object? sender, RoutedEventArgs e)
@@ -66,13 +85,17 @@ public partial class MainWindow : Window
     {
         if (_imagesList.Any())
         {
+            // Show data grid and re-bind items
             ImagesToConvertPlaceHolder.IsVisible = false;
             ImagesToConvertDataGrid.ItemsSource = null;
             ImagesToConvertDataGrid.ItemsSource = _imagesList;
             ImagesToConvertDataGrid.IsVisible = StartConversionButton.IsEnabled = true;
+            if(StartImmediatelyCheckBox.IsChecked ?? false)
+                ConvertImagesInList();
         }
         else
         {
+            // Hide data grid
             ImagesToConvertPlaceHolder.IsVisible = true;
             ImagesToConvertDataGrid.IsVisible = StartConversionButton.IsEnabled = false;
         }
@@ -80,9 +103,9 @@ public partial class MainWindow : Window
 
     private void ClearListButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        if ((sender as Button)!.CommandParameter is null)
+        if ((sender as Button)!.CommandParameter is null) // Clears list
             _imagesList.Clear();
-        else
+        else // Removes only correctly converted files
             _imagesList = _imagesList.Where(image => image.State != ConversionStateEnum.Correct).ToList();
         ValidateFilesList();
     }
@@ -105,15 +128,22 @@ public partial class MainWindow : Window
         ValidateFilesList();
     }
 
-    private void StartConversionButton_OnClick(object? sender, RoutedEventArgs e)
+    private void StartConversionButton_OnClick(object? sender, RoutedEventArgs e) => ConvertImagesInList();
+
+    private void ConvertImagesInList()
     {
         var imagesToProcess = _imagesList.Where(img => img.State != ConversionStateEnum.Correct).ToList();
-        if(!imagesToProcess.Any()) return;
-        
+        if (!imagesToProcess.Any()) return;
+
         StartConversionButton.Content = "Working,,,";
         StartConversionButton.IsEnabled = false;
+
         var processedImages = 0;
-        ThreadPool.SetMaxThreads(4, 4);
+        // Get the current settings.
+        ThreadPool.GetMinThreads(out _, out var minIoc);
+        ThreadPool.SetMaxThreads((int)(ParallelProcessesNumericUpDown.Value ?? 1), minIoc);
+
+
         foreach (var image in imagesToProcess)
         {
             image.State = ConversionStateEnum.Waiting;
@@ -125,13 +155,14 @@ public partial class MainWindow : Window
                 {
                     ImagesToConvertDataGrid.ItemsSource = null;
                     ImagesToConvertDataGrid.ItemsSource = _imagesList;
-                    
+
                     if (processedImages < imagesToProcess.Count) return;
                     StartConversionButton.Content = "Start conversion";
                     StartConversionButton.IsEnabled = true;
                 });
             });
         }
+
         ImagesToConvertDataGrid.ItemsSource = null;
         ImagesToConvertDataGrid.ItemsSource = _imagesList;
     }
@@ -144,5 +175,10 @@ public partial class MainWindow : Window
         image.State = ConversionStateEnum.Working;
         Thread.Sleep(5000);
         image.State = ConversionStateEnum.Correct;
+    }
+
+    private void LanguageComboBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        Assets.Resources.Culture = _cultures[LanguageComboBox.SelectedIndex];
     }
 }

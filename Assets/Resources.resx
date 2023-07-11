@@ -82,4 +82,52 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Copy attributes" xml:space="preserve">
+    <value>Copy attributes and dates from original files</value>
+  </data>
+  <data name="Delete original files" xml:space="preserve">
+    <value>Delete original files when conversion finishes</value>
+  </data>
+  <data name="What to do with same name files" xml:space="preserve">
+    <value>What to do with files with the same name?</value>
+  </data>
+  <data name="Ask" xml:space="preserve">
+    <value>Ask</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="Overwrite" xml:space="preserve">
+    <value>Overwrite</value>
+  </data>
+  <data name="Number of parallel processes" xml:space="preserve">
+    <value>Number of parallel processes</value>
+  </data>
+  <data name="Start conversion" xml:space="preserve">
+    <value>Start conversion</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Max value parallel processes" xml:space="preserve">
+    <value>Maximum value is taken from the processor count of your computer</value>
+  </data>
+  <data name="Correct" xml:space="preserve">
+    <value>Successfully converted</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Waiting other images to finish to start conversion</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Converting image...</value>
+  </data>
+  <data name="Null operation" xml:space="preserve">
+    <value>Press "Start conversion" to initiate operations</value>
+  </data>
+  <data name="Start immediately" xml:space="preserve">
+    <value>Initiate conversion immediately when you add files to the list</value>
+  </data>
 </root>

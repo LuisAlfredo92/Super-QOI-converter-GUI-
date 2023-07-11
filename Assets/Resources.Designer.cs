@@ -61,11 +61,29 @@ namespace GUI.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a About.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Add files.
         /// </summary>
         public static string Add_files {
             get {
                 return ResourceManager.GetString("Add files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ask.
+        /// </summary>
+        public static string Ask {
+            get {
+                return ResourceManager.GetString("Ask", resourceCulture);
             }
         }
         
@@ -97,6 +115,33 @@ namespace GUI.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Copy attributes and dates from original files.
+        /// </summary>
+        public static string Copy_attributes {
+            get {
+                return ResourceManager.GetString("Copy attributes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Successfully converted.
+        /// </summary>
+        public static string Correct {
+            get {
+                return ResourceManager.GetString("Correct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delete original files when conversion finishes.
+        /// </summary>
+        public static string Delete_original_files {
+            get {
+                return ResourceManager.GetString("Delete original files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Use the &quot;Add files&quot; button below or drag and drop files here.
         /// </summary>
         public static string Drag_and_drop_message {
@@ -115,11 +160,110 @@ namespace GUI.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Maximum value is taken from the processor count of your computer.
+        /// </summary>
+        public static string Max_value_parallel_processes {
+            get {
+                return ResourceManager.GetString("Max value parallel processes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No.
         /// </summary>
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Press &quot;Start conversion&quot; to initiate operations.
+        /// </summary>
+        public static string Null_operation {
+            get {
+                return ResourceManager.GetString("Null operation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Number of parallel processes.
+        /// </summary>
+        public static string Number_of_parallel_processes {
+            get {
+                return ResourceManager.GetString("Number of parallel processes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Overwrite.
+        /// </summary>
+        public static string Overwrite {
+            get {
+                return ResourceManager.GetString("Overwrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Rename.
+        /// </summary>
+        public static string Rename {
+            get {
+                return ResourceManager.GetString("Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Skip.
+        /// </summary>
+        public static string Skip {
+            get {
+                return ResourceManager.GetString("Skip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Start conversion.
+        /// </summary>
+        public static string Start_conversion {
+            get {
+                return ResourceManager.GetString("Start conversion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Initiate conversion immediately when you add files to the list.
+        /// </summary>
+        public static string Start_immediately {
+            get {
+                return ResourceManager.GetString("Start immediately", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Waiting other images to finish to start conversion.
+        /// </summary>
+        public static string Waiting {
+            get {
+                return ResourceManager.GetString("Waiting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a What to do with files with the same name?.
+        /// </summary>
+        public static string What_to_do_with_same_name_files {
+            get {
+                return ResourceManager.GetString("What to do with same name files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Converting image....
+        /// </summary>
+        public static string Working {
+            get {
+                return ResourceManager.GetString("Working", resourceCulture);
             }
         }
         
