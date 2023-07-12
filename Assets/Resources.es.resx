@@ -139,4 +139,7 @@
   <data name="Don't ask again" xml:space="preserve">
     <value>No preguntar de nuevo esta sesión</value>
   </data>
+  <data name="Directory confirmation" xml:space="preserve">
+    <value>Los archivos seleccionados contienen una carpeta. ¿Te gustaría añadir cada archivo de esa carpeta?</value>
+  </data>
 </root>

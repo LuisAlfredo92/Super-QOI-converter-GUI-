@@ -23,6 +23,9 @@ public partial class MainWindow : Window, IOptionsConfirmation
     private readonly List<CultureInfo> _cultures;
     private bool _confirmCopy;
     private bool _deleteOriginal;
+    private bool _dontAsk;
+    private OverwriteOptionsEnum _overwriteOptions;
+    private Task<(OverwriteOptionsEnum, bool)?>? _showDialog;
 
     public MainWindow()
     {
@@ -115,7 +118,7 @@ public partial class MainWindow : Window, IOptionsConfirmation
         ValidateFilesList();
     }
 
-    private void DropFiles(object? sender, DragEventArgs e)
+    private async void DropFiles(object? sender, DragEventArgs e)
     {
         var data = e.Data;
 
@@ -127,8 +130,27 @@ public partial class MainWindow : Window, IOptionsConfirmation
         List<string> paths = files.Select(file => file.Path.LocalPath).ToList();
 
         // Add selected files to list
-        foreach (var path in paths)
+        for (var i = 0; i < paths.Count; i++)
+        {
+            var path = paths[i];
+            if (File.GetAttributes(path).HasFlag(FileAttributes.Directory))
+            {
+                var confirmDialog = new ConfirmDialog(Assets.Resources.Directory_confirmation);
+                var a = await confirmDialog.ShowDialog<bool?>(this);
+                switch (a)
+                {
+                    case true:
+                        paths.AddRange(Directory.GetFiles(path));
+                        continue;
+                    case false:
+                        continue;
+                    case null:
+                        return;
+                }
+            }
+
             _imagesList.Add(new ImageToConvert(path, _imageIndex++));
+        }
 
         ValidateFilesList();
     }
@@ -149,7 +171,6 @@ public partial class MainWindow : Window, IOptionsConfirmation
         // Get the current settings.
         ThreadPool.GetMinThreads(out _, out var minIoc);
         ThreadPool.SetMaxThreads((int)(ParallelProcessesNumericUpDown.Value ?? 1), minIoc);
-
 
         foreach (var image in imagesToProcess)
         {
@@ -172,6 +193,7 @@ public partial class MainWindow : Window, IOptionsConfirmation
 
         ImagesToConvertDataGrid.ItemsSource = null;
         ImagesToConvertDataGrid.ItemsSource = _imagesList;
+        _dontAsk = false;
     }
 
     private void Convert(object? data)
@@ -207,27 +229,40 @@ public partial class MainWindow : Window, IOptionsConfirmation
 
     public bool ConfirmOverwrite(ref string existingFile)
     {
+        // Wait if an ask dialog is being showed
+        if (_showDialog is not null && !_showDialog.IsCompleted)
+            _showDialog.Wait();
+
         switch (ExistingFilesComboBox.SelectedIndex)
         {
             // Ask
             case 0:
-                var fileName = Path.GetFileName(existingFile);
-                var showDialog = Dispatcher.UIThread.InvokeAsync(async () =>
+                if (!_dontAsk)
                 {
-                    ConfirmOverwrite confirmOverwriteDialog = new(fileName);
-                    return await confirmOverwriteDialog.ShowDialog<(OverwriteOptionsEnum, bool)?>(this);
-                });
+                    // Ask what to do in a new dialog
+                    var fileName = Path.GetFileName(existingFile);
+                    _showDialog = Dispatcher.UIThread.InvokeAsync(async () =>
+                    {
+                        ConfirmOverwrite confirmOverwriteDialog = new(fileName);
+                        return await confirmOverwriteDialog.ShowDialog<(OverwriteOptionsEnum, bool)?>(this);
+                    });
 
-                var selectedValueTuple = showDialog.Result;
-                if (selectedValueTuple is null) return false;
+                    var selectedValueTuple = _showDialog.Result;
+                    if (selectedValueTuple is null) return false;
 
-                switch (selectedValueTuple.Value.Item1)
+                    _dontAsk = selectedValueTuple.Value.Item2;
+                    _overwriteOptions = selectedValueTuple.Value.Item1;
+                }
+
+                switch (_overwriteOptions)
                 {
                     case OverwriteOptionsEnum.Skip:
                         return false;
-                        case OverwriteOptionsEnum.Rename:
-                            existingFile = existingFile.Insert(existingFile.Length - 4, "_copy");
+
+                    case OverwriteOptionsEnum.Rename:
+                        existingFile = existingFile.Insert(existingFile.Length - 4, "_copy");
                         return true;
+
                     case OverwriteOptionsEnum.Overwrite:
                         return true;
                     default:
@@ -252,6 +287,6 @@ public partial class MainWindow : Window, IOptionsConfirmation
 
     public void ManageDirectory(string directoryPath)
     {
-        throw new NotImplementedException();
+        
     }
 }

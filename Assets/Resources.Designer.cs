@@ -151,6 +151,15 @@ namespace GUI.Assets {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a The selected files contain a directory. Would you like to add each file from that directory?.
+        /// </summary>
+        public static string Directory_confirmation {
+            get {
+                return ResourceManager.GetString("Directory confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Don&apos;t ask again this session.
         /// </summary>
         public static string Don_t_ask_again {
